@@ -380,6 +380,7 @@ label {
 	background: #EC20D8;
 }
 .outline(@var) {
+	border: 1px solid @white;
 	outline: 2px solid @var;
 }
 .color-darkblue{
@@ -403,7 +404,7 @@ label {
 		width: 30px;
 		height:30px;
 		color: transparent;
-		border: 1px solid @white;
+		
 		
 	}
 	input:checked + .color-blue {
@@ -477,24 +478,9 @@ label {
 	}
 
 }
-.product {
-	position: relative;
-	.width(3);	
-	min-height: 405px;
-	margin-right: 16px;
-	margin-bottom: 30px;
-	&:hover .prod_wrapper{
-		z-index: 5000;
-		background: @white;		
-		transform: scale(1.12,1.25) translate(-4px,20px);
-		padding: 8px;
-		border: @border;
-		
-	}
-}
-
 .prod_wrapper {
 	position: absolute;
+	overflow: hidden;
 	display: flex;
 	transition: 0.2s;
 	flex-direction: column;
@@ -536,9 +522,10 @@ label {
 		.width(3);
 		margin-top: 10px;
 		display: none;
+
 		font-size: @fz14;
 		height: 0;
-		max-height: 40px;
+		min-height: 40px;
 	}
 	
 	&:hover button{
@@ -550,6 +537,24 @@ label {
 	}
 	
 }
+.product {
+	position: relative;
+	.width(3);	
+	min-height: 405px;
+	margin-right: 16px;
+	margin-bottom: 30px;
+	&:hover .prod_wrapper{
+		height: auto;
+		z-index: 5000;
+		background: @white;		
+		transform: scale(1.12,1.25) translate(-4px,20px);
+		padding: 8px;
+		border: @border;
+		
+	}
+}
+
+
 .photo {
 	display: inline-flex;
 	position: relative;
@@ -570,8 +575,8 @@ label {
 	.like {
 		transition: 0.2s;
 		position: absolute;
-		width: 22px;	
-		height: 20px;
+		width: 23px;	
+		height: 22px;
 		top: 15px;
 		right: 10px;
 		cursor: pointer;
@@ -581,7 +586,10 @@ label {
 		z-index: 9999;
 	}
 	.like:hover {
+		width: 25px;
+		right: 9px;
 		background-image: url(likehover.png);
+		background-size: cover;
 	}
 }
 nav.right {
