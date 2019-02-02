@@ -11,7 +11,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<title>Store</title>
 </head>
-<body>
+<body >
+	<div id="body">
 	<header>
 		<div class="top">
 			<div class="wrapper">
@@ -27,7 +28,7 @@
 				
 				<div>
 					<button><img src="images/Phone.svg" alt="phone_icon">Заказать звонок</button>
-					<button><img src="images/man.svg" alt="man_icon">Войти</button>
+					<button @click="showlogin=true"><img src="images/man.svg" alt="man_icon">Войти</button>
 				</div>
 			</div>
 		</div>
@@ -486,6 +487,10 @@
 			</div>
 		</div>
 	</footer>
+<login-window v-show="showlogin" @cancelwindow="showlogin=false"></login-window>
+</div>
+</body>
+
 	<script>
 		$(".js-range-slider").ionRangeSlider({
 			skin: 'round',
@@ -494,5 +499,4 @@
 		});
 	</script>
 	<script src="dist/main.js"></script>
-</body>
 </html>

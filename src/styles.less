@@ -63,7 +63,7 @@ li {
 main {
 	margin-bottom: 80px;
 }
-button {
+button, input[type="submit"] {
 	cursor: pointer;
 	height: 40px;
 	background-color: @gold;
@@ -547,7 +547,7 @@ label {
 		height: auto;
 		z-index: 5000;
 		background: @white;		
-		transform: scale(1.12,1.25) translate(-4px,20px);
+		transform: scale(1.12,1.12);
 		padding: 8px;
 		border: @border;
 		
@@ -664,3 +664,97 @@ footer {
 	}
 	
 }
+.login{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	z-index: 9999;
+	transform: translate(-50%,-50%);
+	max-width: 450px;
+	width: 100%;
+}
+.login-window {
+	position:relative;
+	background: @white;
+	padding-top: 31px;
+	padding-bottom: 37px;
+	display: flex;
+
+	flex-direction: column;
+	align-items:center;
+	z-index: 9999;
+	h3 {
+		margin-top: 0; 
+		margin-bottom: 16px;
+	}
+	form {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		max-width: 250px;
+		width: 100%;
+		
+		
+	}
+	input {
+		&[type="text"], &[type="password"],&[type="email"]{
+			width: inherit;
+			border-bottom: 1px solid #333333;
+			padding-bottom: 9px;
+		}
+		&[type="submit"] {
+			max-width: 180px;
+			width: 100%;
+			margin-bottom: 19px;
+		}
+		text-align: center;
+		margin-bottom: 26px;
+		outline: none;
+		border: none;
+		
+		
+	}
+	label {
+		margin-bottom: 10px;
+	}
+	h3 {
+		font-size: 22px;
+		font-weight: 500;
+	}
+	p {
+		margin-top: 0;
+	}
+	.icongroup {
+		margin-bottom: 20px;
+	& > * {	margin-right: 16px; }
+	& :last-child {
+		margin-right: 0;
+	}
+	}
+	a {
+		text-decoration: underline;
+	}
+	a+a {
+		margin-top: 9px;
+	}
+	.close {
+		position: absolute;
+		width: 15px;
+		height: 15px;
+		top: 10px;
+		right: 10px;
+		cursor: pointer;
+	}
+
+	
+}
+.shadowbox {
+		position: absolute;
+		width: 85%;
+		box-shadow: 0 0px 15px 10px @black;
+		bottom: 0;
+		z-index:0;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+	}
