@@ -166,7 +166,7 @@ button, input[type="submit"] {
 .submenu {
 	position: absolute;
 	display: none;
-	
+	z-index: 9999;
 	left: -20px;
 	padding: 0;
 	background: @white;
@@ -186,6 +186,7 @@ button, input[type="submit"] {
 	display: flex;
 	justify-content: row-reverse;
 	font-size: @p;
+	height: 100%;
 }
 .count {
 	position: absolute;
@@ -202,8 +203,12 @@ button, input[type="submit"] {
 	justify-content: center;
 }
 .option {
+	position:relative;
 	margin-left: 1.5 * @padding;
 	.flex_center();
+	&:hover .cart{
+		display: flex;
+	}
 }
 .icon {
 	margin-top: 4px;
@@ -304,7 +309,14 @@ input[type="number"] {
 	height: 17px;
 	border: 0;
 	padding: 2px 7px;
+	appearance: none;
+	    -webkit-appearance:none;
+	    -moz-appearance: textfield;
 
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
 label {
 	display: flex;
@@ -509,13 +521,7 @@ label {
 		& > *{
 			margin-right: 20px;
 		}
-		.old_price {
-			text-decoration-line: line-through;
-			opacity: @opacity;
-		}
-		.red_sale {
-			color: @red;
-		}
+		
 	}
 	
 	button {
@@ -537,6 +543,13 @@ label {
 	}
 	
 }
+.old_price {
+			text-decoration-line: line-through;
+			opacity: @opacity;
+		}
+		.red_sale {
+			color: @red;
+		}
 .product {
 	position: relative;
 	.width(3);	
@@ -757,4 +770,68 @@ footer {
 		bottom: 0;
 		left: 50%;
 		transform: translateX(-50%);
+}
+.cart {
+	display: none;
+	max-width: 287px;
+	width: 287px;
+	background: @white;
+	padding: 17px 18px;
+	padding-bottom: 27px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	transform: translateY(100%);
+	z-index: 9999;
+	
+	flex-direction: column;
+	img {
+		margin-right: 7px;
 	}
+	.buttongroup {
+		.flex_between();
+		button {
+			width: calc(50% - 4.5px);
+		}
+	}
+	.title {
+		font-weight: 600;
+	}
+	.old_price {
+		opacity: 1;
+	}
+}
+.incart {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+	margin-top: 0;
+}
+.cart_product {
+	width: 100%;
+	p {
+		margin: 0;
+	}
+	div {
+		display: flex;
+	}
+	& > div {
+		margin-bottom: 17px;
+	}
+
+}
+.cart_info {
+		flex-direction: column;
+		width: 100%;
+		p {
+			margin-top: 4px;
+			.flex_between();
+		}
+}
+.result {
+	margin-top:0;
+	margin-bottom: 16px;
+}
+div[data-sale="none"]{
+	display: none !important;
+}
