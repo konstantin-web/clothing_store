@@ -496,7 +496,7 @@ label {
 	display: flex;
 	transition: 0.2s;
 	flex-direction: column;
-	
+	z-index: 10;
 	height: 100%;	
 	.title {
 		font-size: 	@fz14;
@@ -513,6 +513,16 @@ label {
 	&:hover .photo .like {
 		display: block;
 	}
+	.liked {
+		width: 25px !important;
+		right: 9px !important;
+		background-image: url(likehover.png) !important;
+		background-size: cover;
+		display: block !important;
+		z-index: 1;
+		
+}
+
 	.price {
 		margin-top: auto;
 	
@@ -558,7 +568,7 @@ label {
 	margin-bottom: 30px;
 	&:hover .prod_wrapper{
 		height: auto;
-		z-index: 5000;
+		z-index: 9999;
 		background: @white;		
 		transform: scale(1.12,1.12);
 		padding: 8px;
@@ -834,4 +844,42 @@ footer {
 }
 div[data-sale="none"]{
 	display: none !important;
+}
+.range {
+	width: 157px;
+	position: relative;
+	height: 20px;
+	margin-bottom: 10px;
+	overflow:hidden;
+	& > * {
+		position: absolute;
+
+	}
+	.from, .to {
+		top: 0;
+		width: 20px;
+		height: 20px;
+		background: @gold;
+		border-radius: 50%;
+		z-index: 9999;
+	}
+	.from {
+		left: 0;
+	}
+	.to{
+		right: 0;
+	}
+	.bar {
+		top: 50%;
+		transform: translateY(-50%);
+		width: calc(100% - 20px);
+		left: 10px;
+		height: 2px;
+		background: #dee4ec;
+	}
+	.progress {
+		background: @black;
+		opacity: 0.5;
+		z-index: 5000;
+	}
 }
