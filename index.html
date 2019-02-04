@@ -5,7 +5,7 @@
 	<title>Store</title>
 </head>
 <body >
-	<div id="body">
+	<div id="body" @mousemove="mmove($event)" @mouseup="mouseups">
 	<header>
 		<div class="top">
 			<div class="wrapper">
@@ -179,16 +179,23 @@
 								:maxx="rangemax"
 								:curmin="rangecurmin"
 								:curmax="rangecurmax"
+								:curx="curx"
+								:mouseupl = "mup"
 								@lchange="leftCh"
 								@rchange="rightCh"
 
 				></range-slide>
 				<div >
 			</div>
+<!--data-min - мининмально возможное число
+	data-max - максимально возможное число
+	data-curmin - текущая минимальная граница
+	data-curmax - текущая максимальная граница
+-->
 			<div class="input_price" id="input_price" data-min="0" 
-													data-max="1000"
-													data-curmin="200"
-													data-curmax="800">
+													  data-max="1000"
+													  data-curmin="0"
+													  data-curmax="100">
 				<label> 
 					От <input type="number" placeholder="0" v-model="leftedge"> руб.
 				</label>

@@ -5,11 +5,22 @@ import Vue from 'vue/dist/vue.js'
 var fav=document.getElementById('favor').innerHTML;
 fav=+fav;
 var rangediv = document.getElementById('input_price');
+
+
 var range_max= +rangediv.getAttribute('data-max');
 var range_min= +rangediv.getAttribute('data-min');
 var range_curmin= +rangediv.getAttribute('data-curmin');
 var range_curmax= +rangediv.getAttribute('data-curmax');
+if (!range_curmin){
+	range_curmin = range_min;
+}
+if (!range_curmax){
+	range_curmax = range_max;
+}
+/*Url для отправки лайка*/
 var url_to_like ='http://site.ru/like'
+
+
 Vue.component('login-window',{
 	data: function () {
 		return {
@@ -72,7 +83,7 @@ Vue.component('login-window',{
 })
 
 Vue.component('range-slide', {
-	props: ['minx','maxx','curmin','curmax'],
+	props: ['minx','maxx','curmin','curmax','curx','mouseupl'],
 	data: function () {
 		return {
 			pressed: NaN,
@@ -87,18 +98,19 @@ Vue.component('range-slide', {
 			range: NaN,
 			curMin: this.curmin,
 			curMax: this.curmax,
+			shiftx: 0,
+			lastnod: NaN,
 
 		}
 	},
-	template: `<div id="range" class="range" @mousemove="slide($event)" @mouseout="mousout">
-				<div class="from" id="from" @mousedown="mouseDown($event,from)" @mouseup="mouseUp($event)"  :style="leftknob"></div>
+	template: `<div id="range" class="range">
+				<div class="from" id="from" @mousedown="mouseDown($event,from)" :style="leftknob"></div>
 				<div id="progress" class="bar progress" :style="progbar"></div>
 				<div class="bar" ></div>
-				<div class="to"id="to" @mousedown="mouseDown($event,to)" @mouseup="mouseUp($event)" :style="rightknob"></div>
+				<div class="to"id="to" @mousedown="mouseDown($event,to)" :style="rightknob"></div>
 	</div>`,
 	computed: {
 		leftknob: function () {
-			
 			return {
 				left: this.curMin,
 			}
@@ -111,11 +123,20 @@ Vue.component('range-slide', {
 		progbar: function () {
 			return {
 				left: this.curMin,
-				width:((this.max-this.min) + 'px'),
+				width:((this.max-this.min+15) + 'px'),
 			}	
 		},
 	},
 	watch: {
+		mouseupl: function () {		
+			if (this.pressed) {
+				this.mouseUp()
+			}	
+		},
+		curx: function()  {
+			
+			this.slide(this.curx);
+		},
 		curmin: function () {
 			let a = Math.round((this.curmin/this.maxx)*100);
 			this.from.style.left =Math.round(137*a/100)+'px';
@@ -131,17 +152,21 @@ Vue.component('range-slide', {
 	},
 	methods: {
 		mouseDown: function (ev, nod) {
+			if (this.lastnod){
+				this.lastnod.style.border='none';
+				this.lastnod.style.zIndex='8000';
+			}
 			this.pressed=nod;
 			this.onpressed=true;
 			this.start=ev.pageX;
+			this.pressed.style.border="1px solid rgba(33,33,33,0.5)"
+			this.pressed.style.zIndex='9999';
 		},
-		mouseUp: function(ev){
+		mouseUp: function(){
+			this.lastnod=this.pressed;
 			this.onpressed=false;
 			this.pressed = NaN;
-		},
-		mousout: function (){
-			this.onpressed=false;
-			this.pressed = NaN;	 
+
 		},
 		slide: function(ev) {
 			if (window.getSelection) {
@@ -149,22 +174,37 @@ Vue.component('range-slide', {
 			if (this.onpressed) {
 				let l = (+this.pressed.style.left.slice(0,-2));
 				(this.pressed==this.from) ? this.min = l: this.max=l;
-				let move = l+(ev.pageX - this.start);
-				if (move>=0&&move<=137)
-				{
-					if (this.pressed==this.from) {
-					this.curMin=(l+(ev.pageX - this.start))+'px';
+				let move = l+(ev - this.start);
+				if (this.pressed==this.from) {
+					if (move<this.max){
+						if (move>0) {
+							this.curMin=move+'px';
+						} else {
+							this.curMin='0px';
+						}
+						
+					}
 				} else {
-					this.curMax=(l+(ev.pageX - this.start))+'px';
+					if (move>this.min) {
+						if (move<137){
+							this.curMax=move+'px';
+						}
+						else {
+							this.curMax='137px';
+						}
+						
+					}	
 				} 
-				this.start=ev.pageX;
-				let a = this.maxx * Math.round((l)/137*100)/100;
+				l = (+this.pressed.style.left.slice(0,-2));
+				this.start=ev;
+				let a = this.maxx *(l)/137;
+				a= Math.floor(a)
 				if (this.pressed==this.from){
 					this.$emit('lchange',a);
 				} else {
 					this.$emit('rchange',a);
 				}
-				}	
+					
 			}
 		}
 	},
@@ -173,8 +213,13 @@ Vue.component('range-slide', {
 		this.to = document.getElementById('to');
 		this.prog = document.getElementById('progress');
 		this.range=document.getElementById('range');
+		if (!this.curmin) {
+			this.curmin=this.minx;
+		}
+		if (!this.curmax){
+			this.curmax=this.maxx;
+		}
 		if (this.curmin) {
-			
 			let a = Math.round((this.curmin/this.maxx)*100);
 			this.from.style.left = Math.round(137*a/100)+'px';
 			this.prog.style.left = Math.round(137*a/100)+'px';
@@ -207,29 +252,57 @@ var catalog = new Vue({
 		rangemax: range_max,
 		favors:[],
 		url: '',
+		curx: 0,
+		mup: 0,
 	},
 	computed: {
 		rangecurmin: function () {
-			if (this.leftedge>0){
+			if (this.leftedge>=0){
 				if (this.leftedge<this.rightedge)
 				{
 					return this.leftedge;
 				}
-				else{
-					this.leftedge=this.rightedge-5;
-					return this.leftedge;
+				else{	
+					return this.rightedge;
 				}
-
-			} else {
+			} else { 
 				return 0;
 			}
 			
 		},
 		rangecurmax: function() {
-			return this.rightedge;
+			if (this.rightedge<=this.rangemax){
+				if (this.rightedge>this.leftedge){
+					return this.rightedge;
+				} else {
+					return this.leftedge;
+				}
+			} else {
+				return this.rangemax;
+			}
+			
+		}
+	},
+	watch: {
+		leftedge: function(){
+			if (this.leftedge>this.rightedge){
+				this.leftedge=this.rightedge;
+			}
+		},
+		rightedge: function(){
+			if (this.rightedge<this.leftedge){
+				this.rightedge=this.leftedge;
+			}
 		}
 	},
 	methods: {
+		mmove: function (ev){
+			this.curx=ev.pageX;
+		},
+		mouseups:function (){
+			this.mup ++;
+			
+		},
 		like: function (ev,id) {
 			console.log(ev);
 			console.log(this.favor)
