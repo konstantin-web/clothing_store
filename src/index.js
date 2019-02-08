@@ -6,8 +6,8 @@ var fav=document.getElementById('favor').innerHTML;
 fav=+fav;
 var rangediv = document.getElementById('input_price');
 
-
-var range_max= +rangediv.getAttribute('data-max');
+if (rangediv) {
+	var range_max= +rangediv.getAttribute('data-max');
 var range_min= +rangediv.getAttribute('data-min');
 var range_curmin= +rangediv.getAttribute('data-curmin');
 var range_curmax= +rangediv.getAttribute('data-curmax');
@@ -17,6 +17,13 @@ if (!range_curmin){
 if (!range_curmax){
 	range_curmax = range_max;
 }
+} else {
+	var range_max= 100;
+	var range_min= 100;
+	var range_curmin=0;
+	var range_curmax=0;
+}
+
 /*Url для отправки лайка*/
 var url_to_like ='http://site.ru/like'
 
@@ -254,6 +261,20 @@ var catalog = new Vue({
 		url: '',
 		curx: 0,
 		mup: 0,
+		shown: false,
+		photos: [],
+		activephoto: 0,
+		slides: [],
+		slide: '',
+		slidename: '',
+		slidecolor: '',
+		slidecount: 0,
+		slidextention: '', 
+		curslide: 0,
+		fullNameSlide: '',
+		styleDetails: {
+			maxHeight: '112px',
+		},
 	},
 	computed: {
 		rangecurmin: function () {
@@ -281,6 +302,22 @@ var catalog = new Vue({
 				return this.rangemax;
 			}
 			
+		},
+		next: function () {
+			if (this.curslide==(this.slidecount-1)) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		},
+		prev: function () {
+			if (this.curslide==0) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	},
 	watch: {
@@ -298,6 +335,10 @@ var catalog = new Vue({
 	methods: {
 		mmove: function (ev){
 			this.curx=ev.pageX;
+		},
+		showDetail: function() {
+			this.shown = this.shown? false:true;
+			this.styleDetails.maxHeight = this.shown?document.getElementById('details').scrollHeight+'px' : '112px';
 		},
 		mouseups:function (){
 			this.mup ++;
@@ -326,8 +367,12 @@ var catalog = new Vue({
 		cancelWindow: function () {
 			this.showlogin=false;
 		},
-		slideChange: function () {
-		
+		slideChange: function (i) {
+			this.slides[this.curslide].isActive=false;
+			this.curslide=i;
+			this.slide=this.slides[i].path;
+			this.slides[i].isActive=true;
+
 		},
 		rightCh: function(a) {
 			this.rightedge = a;
@@ -358,6 +403,53 @@ var catalog = new Vue({
 		page: function (page) {
 			this.addUrl('page',page);
 			window.location=this.createUrl();
+		},
+		nextSlide: function () {
+			if (this.curslide<this.slidecount-1) {
+				this.slides[this.curslide].isActive=false;
+				this.curslide++;
+				this.slide = this.slides[this.curslide].path;
+				this.slides[this.curslide].isActive=true;
+				console.log(this.slide)
+			}
+		},
+		prevSlide: function () {
+			if (this.curslide>0) {
+				this.slides[this.curslide].isActive=false;
+				this.curslide--;
+				this.slides[this.curslide].isActive=true;
+				this.slide = this.slides[this.curslide].path;
+				console.log(this.slide)
+			}
+		},
+		changeColor: function (i) {
+			this.slides = [];
+			this.photos[this.activephoto].isActive = false;
+			this.activephoto = i;
+			this.photos[i].isActive = true;
+			let path = this.photos[i].path.split('/');
+			this.slidextention = path[path.length-1].split('.')[1];
+			let fullname = path[path.length-1].split('.')[0];
+			fullname = fullname.split('_');
+			console.log(path.join('/'));
+			path = path.slice(0,-1);
+			let pathslide = path.join('/')
+			this.slidecolor = fullname[0];
+			this.slidename = fullname[1];
+			this.slidecount = + fullname[2];
+			for (i=0;i<this.slidecount;i++) {
+				let npath = this.slidecolor+'_'+this.slidename+(i+1)+'.'+this.slidextention;
+				let mpath =	this.slidecolor+'_'+this.slidename+(i+1)+'_mini'+'.'+this.slidextention; 
+				
+				
+				this.slides.push({
+					path: pathslide+'/'+npath,
+					path_mini: pathslide+'/'+mpath,
+					isActive: i==0,
+				})
+			}
+			this.slide = this.slides[0].path
+			this.curslide = 0;
 		}
  	},
  	created: function () {
@@ -366,7 +458,19 @@ var catalog = new Vue({
  			let a = this.url[0].split('?');
  			this.url= a.concat(this.url.slice(1));
  		}
- 		console.log(this.url);
+ 		let phot =document.getElementsByClassName('tcolor');
+ 		if (phot){
+ 			for (let i=1; i<phot.length; i++){
+ 				let src = phot[i].children[0].getAttribute('src');
+ 				let active = (i==1)
+ 				this.photos.push({
+ 					path : src,
+ 					isActive: active,
+ 				})
+ 			}
+ 			this.changeColor(0);
+ 		}
+ 		
  	}
 })
 

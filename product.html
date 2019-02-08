@@ -129,184 +129,131 @@
 			</div>
 		</div>
 	</header>
-	<main>
-		<section class="filter">
-			<ul>
-				<li><div>Мужчинам</div>
-					<ul class="submenu">
-								<li class="submenu_item"><a href="#">Платья</a></li>
-								<li class="submenu_item"><a href="#">Блузы и рубашки</a></li>
-								<li class="submenu_item"><a href="#">Брюки</a></li>
-								<li class="submenu_item"><a href="#">Боди</a></li>
-								<li class="submenu_item"><a href="#">Костюмы и пиджаки</a></li>
-								<li class="submenu_item"><a href="#">Джинсы</a></li>
-								<li class="submenu_item"><a href="#">Домашняя одежда</a></li>
-								<li class="submenu_item"><a href="#">Футболки и поло</a></li>
-								<li class="submenu_item"><a href="#">Купальники и пляжная одежда</a></li>
-							</ul>
-				</li>
-				<li class="active"><div>Женищинам</div>
-					<ul class="submenu">
-								<li class="submenu_item"><a href="#" class="active">Платья</a></li>
-								<li class="submenu_item"><a href="#">Блузы и рубашки</a></li>
-								<li class="submenu_item"><a href="#">Брюки</a></li>
-								<li class="submenu_item"><a href="#">Боди</a></li>
-								<li class="submenu_item"><a href="#">Костюмы и пиджаки</a></li>
-								<li class="submenu_item"><a href="#">Джинсы</a></li>
-								<li class="submenu_item"><a href="#">Домашняя одежда</a></li>
-								<li class="submenu_item"><a href="#">Футболки и поло</a></li>
-								<li class="submenu_item"><a href="#">Купальники и пляжная одежда</a></li>
-							</ul>
-				</li>
-				<li><div>Акции</div>
-					<ul class="submenu">
-								<li class="submenu_item"><a href="#">Платья</a></li>
-								<li class="submenu_item"><a href="#">Блузы и рубашки</a></li>
-								<li class="submenu_item"><a href="#">Брюки</a></li>
-								<li class="submenu_item"><a href="#">Боди</a></li>
-								<li class="submenu_item"><a href="#">Костюмы и пиджаки</a></li>
-								<li class="submenu_item"><a href="#">Джинсы</a></li>
-								<li class="submenu_item"><a href="#">Домашняя одежда</a></li>
-								<li class="submenu_item"><a href="#">Футболки и поло</a></li>
-								<li class="submenu_item"><a href="#">Купальники и пляжная одежда</a></li>
-							</ul>
-
-				</li>
+	<div>
+		<div class="wrapper">
+			<ul class="path">
+				<li><a href="#">Главная</a></li>
+				<li><a href="#">Каталог</a></li>
+				<li><a href="#">Платья</a></li>
 			</ul>
-			<div class="price_range">
-				<h3>Цена</h3>
-				<range-slide 	:minx="rangemin"
-								:maxx="rangemax"
-								:curmin="rangecurmin"
-								:curmax="rangecurmax"
-								:curx="curx"
-								:mouseupl = "mup"
-								@lchange="leftCh"
-								@rchange="rightCh"
-
-				></range-slide>
-				<div >
-			</div>
-<!--data-min - мининмально возможное число
-	data-max - максимально возможное число
-	data-curmin - текущая минимальная граница
-	data-curmax - текущая максимальная граница
--->
-			<div class="input_price" id="input_price" data-min="0" 
-													  data-max="100"
-													  data-curmin="0"
-													  data-curmax="100">
-				<label> 
-					От <input type="number" placeholder="0" v-model="leftedge"> руб.
-				</label>
-				<label>
-					До <input type="number" v-model="rightedge"> руб.
-				</label>			
-			</div>
 		</div>
+	</div>
 
-			<div class="sizes">
-				<h3>Размеры</h3>
-				<div class="input_sizes">
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-					<label class="input_size"> 
-						<input type="checkbox" name=""><div class="check_text">42 <span class="rest">(2)</span></div>
-					</label>
-
-				</div>
-			</div>
-			<div class="colors">
-				<h3>
-					Цвета
-				</h3>
-
-				<div class="col_input">
-					<label class="color">
-						<input type="checkbox">
-						<div class="color-blue"></div>
-					</label>
-					<label class="color">
-						<input type="checkbox">
-						<div class="color-green"></div>
-					</label>
-					<label class="color">
-						<input type="checkbox">
-						<div class="color-red"></div>
-					</label>
-					<label class="color">
-						<input type="checkbox">
-						<div class="color-black"></div>
-					</label>
-					
-					<label class="color">
-						<input type="checkbox">
-						<div class="color-purple"></div>
-					</label>
-					<label class="color">
-						<input type="checkbox">
-						<div class="color-orange"></div>
-					</label>
-					<label class="color">
-						<input type="checkbox">
-						<div class="color-yellow"></div>
-					</label>
-					<label class="color">
-						<input type="checkbox">
-						<div class="color-darkblue"></div>
-					</label>
-					<label class="color">
-						<input type="checkbox">
-						<div class="color-white"></div>
-
-					</label>
+	<main style="margin-bottom: 50px">
+		<div class="description_product">
+			<div class="photo_product" v-if="slides">
+					<div class="miniatures">
+						<div class="miniature" v-for="(item,index) in slides"
+											   @click="slideChange(index)"
+											   :class="{active: item.isActive}"
+						><img :src=item.path_mini></div>
+					</div>
+					<div class=main_photo>
+					<div class=dies>
+						<div class="novelty">Новинка</div>
+						<div class="sell_out">Распродажа</div>
+					</div>
+					<img :src="slide">
+					<div class="control next" :class='{disabled: next}' @click="nextSlide"></div>
+					<div class="control prev" :class='{disabled: prev}' @click="prevSlide"></div>
 				</div>
 				
-			</div>	
-		</section>
-		<section class="catalog">
-			<h1>Джемпера</h1>
-			<nav class="justify">
-				<div class="sort">
-					<span class="namesort">Сортировать по:</span> <a href="#">Популярности</a> <a href="#">Цене</a>
+			</div>
+			<div class="photo_product" v-else="slides">
+					<div class="miniatures">
+						<div class="miniature active"><img src="images/Photo1-mini.png"></div>
+						<div class="miniature"><img src="images/Photo2-mini.png"></div>
+						<div class="miniature"><img src="images/Photo3-mini.png"></div>
+						<div class="miniature"><img src="images/Photo4-mini.png"></div>
+					</div>
+					<div class=main_photo>
+					<div class=dies>
+						<div class="novelty">Новинка</div>
+						<div class="sell_out">Распродажа</div>
+					</div>
+					<img src="images/photo1.png">
+					<div class="control next"></div>
+					<div class="control prev disabled"></div>
 				</div>
-				<div class="pages">
-					<span class="page active" @click="page(1)"><a >1</a></span>
-					<span class="page" @click="page(2)"><a >2</a></span>
-					<span class="page" @click="page(3)"><a >3</a></span>
-					<span class=page>...</span>
-					<span class="page" @click="page(6)"><a >6</a></span>
-					<span class="page" @click="page(7)"><a >7</a></span>
-					<span class="page" @click="page(8)"><a >8</a></span>
+				
+			</div>
+			<div class="specifications">
+				<h1>United Colors of Benetton, Джемпер</h1>
+				<details open class="first">
+					<summary></summary>
+					<p><span class="name_details">Артикул:</span> <strong>FASHION00757</strong></p>
+					<p><span class="name_details">Бренд:</span> Benetton</p>
+					<p><span class="name_details">Цвет:</span> Темно-синий</p>
+				</details>
+				<div class="price">
+					<span class="old_price">3 500 руб.</span><sup>-45%</sup>
+					<span class="red_sale">2100 руб.</span>
+					
 				</div>
-			</nav>
-			<section class="products">
-				<article class="product">
+				<div class="desc_sizes">
+					<p>Таблица размеров</p>
+					<div class="size_group">
+						<div class="size">42</div>
+						<div class="size">44</div>
+						<div class="size">46</div>
+						<div class="size">48</div>
+						<div class="size">50</div>
+					</div>
+				</div>
+				<div class="button_group">
+					<button>Добавить в корзину</button>
+					<button class="add_to_favor"></button>
+				</div>
+				<div class="desc_colors">
+					<h3>Цвет:</h3>
+					<div class="colors_group" v-if="photos">
+						<div class="tcolor" v-for="(item,index) in photos"
+											:class="{active: item.isActive}"
+											@click="changeColor(index)">
+											<img :src="item.path">
+						</div>
+					</div>
+						<div class="colors_group" v-else="photos">
+							<div class="tcolor active"><img src="images/tcolor1_photo_4.png"></div>
+							<div class="tcolor"><img src="images/tcolor2_photo_4.png" alt=""></div>
+							<div class="tcolor"><img src="images/tcolor3_photo_4.png.png" alt=""></div>
+							<div class="tcolor"><img src="images/tcolor4_photo_4.png.png" alt=""></div>
+						</div>
+				</div>
+				<div class="desc_detail">
+					<h3>Информация о товаре</h3>
+					<div class="details" :style="styleDetails" id=details>
+						<div class="halftrans" :class="{showDetails: shown}"></div>
+						<p>Состав: <strong>Вискоза - 45%, Полиэстер - 40%, Акрил - 15% </strong></p>
+						<p>Размер товара на модели: <strong>42/44</strong></p>
+						<p>Длина: <strong>130 см</strong></p>
+						<p>Длина рукава: <strong>28 см</strong></p>
+						<p>Длина: <strong>130 см</strong></p>
+						<p>Длина рукава: <strong>28 см</strong></p>
+						<p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую коллекцию размеров и форм шрифтов, используя Lorem Ipsum для распечатки образцов.</p>
+						
+					</div>
+					<p class="open" v-on:click="showDetail"><span v-if="shown">Свернуть</span> <span v-else="shown">Развернуть</span><img src="images/Arrow.png" alt="" :class="{showDetails: shown}"></p>
+				</div>
+			</div>
+		</div>
+		
+	</main>
+	<section class="carousel">
+		<div class="wrapper">
+			<header><h2>Вам могут понравиться</h2>
+				<ul class="car_bar">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li class="active"></li>
+				</ul>
+			</header>
+			<div class="cardcontainer">
+				<div class="cardrow">
+					<article class="product">
 					<div class="prod_wrapper">
 						<div class="photo">
 							<div class="like" @click=like($event,1)></div>
@@ -457,20 +404,13 @@
 					<button>Подробнее</button>
 				</div>
 			</article>
-			</section>
-			<nav class=right>
-				<div class="pages">
-					<span class="page active" @click="page(1)"><a >1</a></span>
-					<span class="page" @click="page(2)"><a >2</a></span>
-					<span class="page" @click="page(3)"><a >3</a></span>
-					<span class=page>...</span>
-					<span class="page" @click="page(6)"><a >6</a></span>
-					<span class="page" @click="page(7)"><a >7</a></span>
-					<span class="page" @click="page(8)"><a >8</a></span>
 				</div>
-			</nav>
-			<section class="lastseen">
-				<h2>Вы смотрели (1)</h2>
+			</div>
+		</div>		
+	</section>
+	<section class="lastseen" style="margin-bottom: 80px">
+				<div class="wrapper">
+					<h2>Вы смотрели (1)</h2>
 				<section>
 					<article>
 						<img src="images/Photo.png">
@@ -480,10 +420,9 @@
 					</article>
 				</section>
 					
+				</div>
 				
 			</section>
-		</section>
-	</main>
 	<footer>
 		<div class="wrapper">
 			<div class="help">
